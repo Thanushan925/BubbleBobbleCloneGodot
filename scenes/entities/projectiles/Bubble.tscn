@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://be4rpsatn32oi"]
+
+[ext_resource type="Script" uid="uid://dmvk08a1i3ww0" path="res://scenes/entities/projectiles/bubble.gd" id="1_esxm3"]
+[ext_resource type="Texture2D" uid="uid://ddsw6smgllyj" path="res://sprites/bubble.png" id="2_5g3qy"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6gnb1"]
+radius = 16.0
+
+[node name="Bubble" type="Area2D" groups=["bubbles"]]
+collision_layer = 16
+collision_mask = 5
+script = ExtResource("1_esxm3")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_5g3qy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_6gnb1")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 4.0
+one_shot = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

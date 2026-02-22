@@ -1,0 +1,34 @@
+[gd_scene load_steps=7 format=3 uid="uid://bcvdbp35b8hxw"]
+
+[ext_resource type="Script" uid="uid://bumug3pl8yfe2" path="res://scenes/entities/player/player.gd" id="1_tlaso"]
+[ext_resource type="PackedScene" uid="uid://be4rpsatn32oi" path="res://scenes/entities/projectiles/Bubble.tscn" id="2_afppm"]
+[ext_resource type="Texture2D" uid="uid://dej1j25kec4ke" path="res://sprites/player_run.png" id="3_30dhn"]
+[ext_resource type="Texture2D" uid="uid://gtidfn3im7l7" path="res://sprites/player.png" id="3_n1xdv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sjmi1"]
+size = Vector2(32, 48)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_afppm"]
+size = Vector2(32, 48)
+
+[node name="Player" type="CharacterBody2D" groups=["player"]]
+collision_mask = 2
+script = ExtResource("1_tlaso")
+stand_texture = ExtResource("3_n1xdv")
+run_texture = ExtResource("3_30dhn")
+bubble_scene = ExtResource("2_afppm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_sjmi1")
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 20
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("RectangleShape2D_afppm")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.75, 0.75)
+
+[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
